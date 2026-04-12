@@ -1,12 +1,8 @@
 import os
-from dotenv import load_dotenv
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import MarkdownHeaderTextSplitter
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings # NEW IMPORT
 from langchain_community.vectorstores import Chroma
-
-# Load your Google API Key
-load_dotenv()
 
 def setup_retriever():
     """Loads the Markdown KB, chunks it, and returns a Chroma retriever."""
@@ -25,18 +21,17 @@ def setup_retriever():
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
     splits = markdown_splitter.split_text(kb_content)
 
-    # 3. Initialize Google's embedding model
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    # 3. Initialize HuggingFace local embedding model (NO API KEY NEEDED)
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
     # 4. Create the local vector store
-    # This creates a local SQLite database in a folder called "chroma_db"
     vectorstore = Chroma.from_documents(
         documents=splits, 
         embedding=embeddings,
         persist_directory="./chroma_db"
     )
 
-    # 5. Return it as a retriever object for the agent to use
+    # 5. Return it as a retriever object
     retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
     return retriever
 
