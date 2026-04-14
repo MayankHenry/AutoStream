@@ -17,7 +17,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from rag import setup_retriever
 
 # Load your OpenRouter API key
-load_dotenv()
+load_dotenv("_env")
 
 # ==========================================
 # 1. Define the Agent's Memory (State)
