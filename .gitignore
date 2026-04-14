@@ -1,1 +1,24 @@
+# Environment & secrets
 .env
+_env
+*.env
+.env.*
+
+# Vector store (auto-generated)
+chroma_db/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+env/
+venv/
+.venv/
+
+# Streamlit
+.streamlit/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -3,20 +3,21 @@ from langchain_core.messages import HumanMessage
 from agent import app
 
 st.set_page_config(page_title="AutoStream Assistant", page_icon="🎬", layout="centered")
-st.title("🎬 AutoStream AI")
-st.markdown("Welcome to AutoStream! Ask me about our video editing plans, pricing, or how to get started.")
+
+st.title("🎬 AutoStream AI Assistant")
+st.markdown("Ask me about pricing, features, or get started with a plan!")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
 if "thread_id" not in st.session_state:
-    st.session_state.thread_id = "streamlit_demo_user"
+    st.session_state.thread_id = "user_session_1"
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
-if prompt := st.chat_input("E.g., What is the price of the Pro plan?"):
+if prompt := st.chat_input("E.g. What's included in the Pro plan?"):
 
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -35,7 +36,13 @@ if prompt := st.chat_input("E.g., What is the price of the Pro plan?"):
                 if "messages" in event:
                     last_message = event["messages"][-1]
 
-            ai_response = last_message.content if last_message else "Sorry, something went wrong."
+            if last_message is None:
+                ai_response = "Sorry, something went wrong. Please try again."
+            elif hasattr(last_message, "content"):
+                ai_response = last_message.content
+            else:
+                ai_response = str(last_message)
+
             st.markdown(ai_response)
 
     st.session_state.messages.append({"role": "assistant", "content": ai_response})

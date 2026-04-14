@@ -11,6 +11,6 @@
 - 4K resolution
 - AI captions
 
-# Company Policies
+## Company Policies
 - No refunds after 7 days
 - 24/7 support available only on Pro plan

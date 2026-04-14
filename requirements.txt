@@ -1,11 +1,11 @@
-langchain-openai       # needed for ChatOpenAI
-sentence-transformers  # needed for HuggingFaceEmbeddings
-langchain-text-splitters
-streamlit
-requests
-langchain
-langchain-community
-langgraph
-langchain-google-genai
+langchain==0.3.28
+langchain-openai==0.3.35
+langchain-community==0.3.28
+langchain-huggingface==0.1.2
+langchain-text-splitters==0.3.11
+langgraph==0.2.76
 chromadb
+sentence-transformers
+streamlit
 python-dotenv
+requests
