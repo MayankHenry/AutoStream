@@ -1,3 +1,8 @@
+langchain-openai       # needed for ChatOpenAI
+sentence-transformers  # needed for HuggingFaceEmbeddings
+langchain-text-splitters
+streamlit
+requests
 langchain
 langchain-community
 langgraph
